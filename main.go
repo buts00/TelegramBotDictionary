@@ -69,14 +69,9 @@ func respond(botUrl string, update Update) error {
 
 	} else if botMessage.Text == "/random" {
 		botMessage.Text = RandomWord(botMessage.ChatId)
-	} else if len(strings.Split(botMessage.Text, " ")) == 3 {
-		messageArr := strings.Split(botMessage.Text, " ")
-		if messageArr[0] == "/add" {
-			InsertWord(botMessage.Text, botMessage.ChatId)
-			botMessage.Text = "The new word has been saved"
-		} else {
-			botMessage.Text = "fuck you"
-		}
+	} else if botMessage.Text == "/add" {
+		botMessage.Text = "Write two words through the gap (word translation)"
+
 	} else if botMessage.Text == "/help" {
 		allCommandsArr, err := listCommand(botUrl)
 		if err != nil {
@@ -92,6 +87,9 @@ func respond(botUrl string, update Update) error {
 			}
 			botMessage.Text = strings.Join(allCommands, "\n")
 		}
+	} else if len(strings.Split(botMessage.Text, " ")) == 2 {
+		InsertWord(botMessage.Text, botMessage.ChatId)
+		botMessage.Text = "Your word has been saved"
 
 	} else {
 		botMessage.Text = "fuck you"

@@ -53,7 +53,7 @@ func InsertWord(newWord string, chatId int) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	_, err = query.Exec(chatId, newWordArr[1], newWordArr[2])
+	_, err = query.Exec(chatId, newWordArr[0], newWordArr[1])
 	if err != nil {
 		log.Fatal(err)
 	}
